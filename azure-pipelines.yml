@@ -5,7 +5,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  wwwrootDir: 'MultiLingual/wwwroot'
+  wwwrootDir: $(Build.SourcesDirectory)/'MultiLingual/wwwroot'
   dotnetSdkVersion: '2.1.505'
 
 steps:
@@ -27,7 +27,7 @@ steps:
 
 - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
   displayName: 'Write build info'
-  workingDirectory: $(Build.SourcesDirectory)/(wwwrootDir)
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
