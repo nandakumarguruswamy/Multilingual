@@ -5,7 +5,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  wwwrootDir: $(Build.SourcesDirectory)/'MultiLingual/wwwroot'
+  wwwrootDir: 'MultiLingual/wwwroot'
   dotnetSdkVersion: '2.1.505'
 
 steps:
@@ -27,26 +27,27 @@ steps:
 
 - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
   displayName: 'Write build info'
-  workingDirectory: '$(System.DefaultWorkingDirectory)'
+#  workingDirectory: '$(System.DefaultWorkingDirectory)'
+#  workingDirectory: '$(System.DefaultWorkingDirectory)/$(wwwroot)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
   inputs:
     command: 'restore'
-    projects: '**/*.csproj'
+    projects: '**/*.cs'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build the project - $(buildConfiguration)'
   inputs:
     command: 'build'
     arguments: '--no-restore --configuration $(buildConfiguration)'
-    projects: '**/*.csproj'
+    projects: '**/*.cs'
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - $(buildConfiguration)'
   inputs:
     command: 'publish'
-    projects: '**/*.csproj'
+    projects: '**/*.cs'
     publishWebProjects: false
     arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
     zipAfterPublish: true
