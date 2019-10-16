@@ -14,8 +14,8 @@ steps:
   inputs:
     verbose: false
 
-- script: './node_modules/.bin/node-sass MultiLingual/wwwroot --output MultiLingual/wwwroot'
-  displayName: 'Compile Sass assets'
+# - script: './node_modules/.bin/node-sass MultiLingual/wwwroot --output MultiLingual/wwwroot'
+#  displayName: 'Compile Sass assets'
 
 - task: gulp@1
   displayName: 'Run gulp tasks'
